@@ -11,7 +11,9 @@
         const p = "paper";
         const r = "rock";
         const s = "scissors";
-        let result;
+        let roundResult;
+   
+        let bestOfFiveResult;
 
         function getComputerChoice(){
             let choicesArray = [p,r,s]; 
@@ -22,25 +24,43 @@
         function playRound(playerSelection, computerSelection){
   
             if (playerSelection.toLowerCase() === p && computerSelection === s){
-                result = "You lose ! Scissors beats Paper";
+                roundResult = "You lose this round ! Scissors beats Paper";
+                
             }else if (playerSelection.toLowerCase() === s && computerSelection === p){
-                result = "You win ! Scissors beats Paper";
+                roundResult = "You win this round ! Scissors beats Paper";
+                
             }else if (playerSelection.toLowerCase() === r && computerSelection === p){
-                result = "You win ! Rock beats Paper";
+                roundResult = "You win this round ! Rock beats Paper";
+                
             }else if (playerSelection.toLowerCase() === p && computerSelection === r){
-                result = "You lose ! Rock beats Paper";
+                roundResult = "You lose this round ! Rock beats Paper";
+                
             }else if (playerSelection.toLowerCase() === r && computerSelection === s){
-                result = "You win ! Rock beats Scissors";
+                roundResult = "You win this round ! Rock beats Scissors";
+                
             }else if (playerSelection.toLowerCase() === s && computerSelection === r){
-                result = "You win ! Rock beats Scissors";
+                roundResult = "You lose this round ! Rock beats Scissors";
+                
             }
-            return result;
+            return roundResult;
+           
         }
         
 
-        const cs = getComputerChoice();
-        const ps = prompt("What's your choice ?");
-        console.log(playRound(ps, cs));
+
+        
+        function game(){
+            for (let i=1 ; i<=5 ; i++){
+                const cs = getComputerChoice();
+                const ps = prompt("What's your choice for round" + " " + i + " " + "?");
+                playRound(ps ,cs);
+                console.log(roundResult);
+                                
+            }
+            
+
+        }
+        console.log(game());
         
     </script>
 </body>
