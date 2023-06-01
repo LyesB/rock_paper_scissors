@@ -12,6 +12,8 @@
         const r = "rock";
         const s = "scissors";
         let roundResult;
+        let pScore = 0;
+        let cScore = 0;
    
         let bestOfFiveResult;
 
@@ -22,27 +24,36 @@
         }
 
         function playRound(playerSelection, computerSelection){
+
   
             if (playerSelection.toLowerCase() === p && computerSelection === s){
                 roundResult = "You lose this round ! Scissors beats Paper";
+                cScore++; 
                 
             }else if (playerSelection.toLowerCase() === s && computerSelection === p){
                 roundResult = "You win this round ! Scissors beats Paper";
+                pScore++;
                 
             }else if (playerSelection.toLowerCase() === r && computerSelection === p){
                 roundResult = "You win this round ! Rock beats Paper";
+                pScore++;
                 
             }else if (playerSelection.toLowerCase() === p && computerSelection === r){
                 roundResult = "You lose this round ! Rock beats Paper";
+                cScore++;
                 
             }else if (playerSelection.toLowerCase() === r && computerSelection === s){
                 roundResult = "You win this round ! Rock beats Scissors";
+                pScore++;
                 
             }else if (playerSelection.toLowerCase() === s && computerSelection === r){
                 roundResult = "You lose this round ! Rock beats Scissors";
+                cScore++;
                 
             }
             return roundResult;
+            return cScore;
+            return pScore;
            
         }
         
@@ -52,12 +63,19 @@
         function game(){
             for (let i=1 ; i<=5 ; i++){
                 const cs = getComputerChoice();
+                console.log(cs);
                 const ps = prompt("What's your choice for round" + " " + i + " " + "?");
                 playRound(ps ,cs);
                 console.log(roundResult);
+                bestOfFiveResult = ("Computer"+" "+cScore+"-"+pScore+" "+"Player");
+                console.log(bestOfFiveResult); 
                                 
             }
-            
+            if (cScore > pScore){
+                console.log("You lost! :(");
+            }else if (cScore < pScore){
+                console.log("You won ! :)");
+            } 
 
         }
         console.log(game());
