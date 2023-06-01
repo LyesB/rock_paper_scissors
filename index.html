@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const p = "paper";
+        const r = "rock";
+        const s = "scissors";
+        let result;
+
+        function getComputerChoice(){
+            let choicesArray = [p,r,s]; 
+            let randomChoice = Math.floor(Math.random()*choicesArray.length)
+            return choicesArray[randomChoice];
+        }
+
+        function playRound(playerSelection, computerSelection){
+  
+            if (playerSelection.toLowerCase() === p && computerSelection === s){
+                result = "You lose ! Scissors beats Paper";
+            }else if (playerSelection.toLowerCase() === s && computerSelection === p){
+                result = "You win ! Scissors beats Paper";
+            }else if (playerSelection.toLowerCase() === r && computerSelection === p){
+                result = "You win ! Rock beats Paper";
+            }else if (playerSelection.toLowerCase() === p && computerSelection === r){
+                result = "You lose ! Rock beats Paper";
+            }else if (playerSelection.toLowerCase() === r && computerSelection === s){
+                result = "You win ! Rock beats Scissors";
+            }else if (playerSelection.toLowerCase() === s && computerSelection === r){
+                result = "You win ! Rock beats Scissors";
+            }
+            return result;
+        }
+        
+
+        const cs = getComputerChoice();
+        const ps = prompt("What's your choice ?");
+        console.log(playRound(ps, cs));
+        
+    </script>
+</body>
+</html>
