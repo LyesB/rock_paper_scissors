@@ -4,9 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>RPS</title>
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
+    <div class="buttons">
+        <button id="rockbtn">ROCK</button>
+        <button id="paperbtn">PAPER</button>
+        <button id="scissorsbtn">SCISSORS</button>
+    </div>
+    <div class="display">
+        <div class="roundDisplay"></div>
+        <div class="score"></div>
+        <div class="gameResult"></div>
+    </div>
+
     <script>
         const p = "paper";
         const r = "rock";
@@ -15,7 +27,6 @@
         let pScore = 0;
         let cScore = 0;
    
-        let bestOfFiveResult;
 
         function getComputerChoice(){
             let choicesArray = [p,r,s]; 
@@ -35,12 +46,12 @@
                 pScore++;
                 
             }else if (playerSelection.toLowerCase() === r && computerSelection === p){
-                roundResult = "You win this round ! Rock beats Paper";
-                pScore++;
+                roundResult = "You lose this round ! Paper beats Rock";
+                cScore++;
                 
             }else if (playerSelection.toLowerCase() === p && computerSelection === r){
-                roundResult = "You lose this round ! Rock beats Paper";
-                cScore++;
+                roundResult = "You win this round ! Paper beats Rock";
+                pScore++;
                 
             }else if (playerSelection.toLowerCase() === r && computerSelection === s){
                 roundResult = "You win this round ! Rock beats Scissors";
@@ -50,6 +61,8 @@
                 roundResult = "You lose this round ! Rock beats Scissors";
                 cScore++;
                 
+            }else if(playerSelection.toLowerCase() === computerSelection){
+                roundResult = "It's a tie ! choose again !";
             }
             return roundResult;
             return cScore;
@@ -57,28 +70,54 @@
            
         }
         
+        const buttons = document.querySelectorAll("button");
 
+        buttons.forEach((button) => {
+
+            button.addEventListener('click', function(e){
+
+                //Generating a random computer's choice
+                let cs = getComputerChoice();
+
+                const round = playRound(button.textContent, cs);
+
+                const roundDisplay = document.querySelector(".roundDisplay");
+
+                const score = document.querySelector(".score");
+
+                const gameResult = document.querySelector(".gameResult");
+
+                //Displaying the result of one round
+                roundDisplay.textContent = round;
+
+                //Displaying the score
+                score.textContent = ("Computer"+" "+cScore+"-"+pScore+" "+"Player");
+
+                //Displaying the winner after reaching 5 points
+                if(pScore == 5 ){
+                    gameResult.textContent = "CONGRATS !! YOU WON";
+                    pScore = 0;
+                    cScore = 0;
+                }else if (cScore == 5){
+                    gameResult.textContent = "YOU LOST :(";
+                    pScore = 0;
+                    cScore = 0;
+                }else{
+                    gameResult.textContent = ""
+                }
+                
+            });
+        });
+
+ 
+ 
+                                
+            
+        
 
         
-        function game(){
-            for (let i=1 ; i<=5 ; i++){
-                const cs = getComputerChoice();
-                console.log(cs);
-                const ps = prompt("What's your choice for round" + " " + i + " " + "?");
-                playRound(ps ,cs);
-                console.log(roundResult);
-                bestOfFiveResult = ("Computer"+" "+cScore+"-"+pScore+" "+"Player");
-                console.log(bestOfFiveResult); 
-                                
-            }
-            if (cScore > pScore){
-                console.log("You lost! :(");
-            }else if (cScore < pScore){
-                console.log("You won ! :)");
-            } 
-
-        }
-        console.log(game());
+        
+  
         
     </script>
 </body>
